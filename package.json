@@ -20,6 +20,7 @@
   "scripts": {
     "build": "tsup",
     "export:icons": "node scripts/export-icons.mjs",
+    "export:preview": "node scripts/export-preview.mjs",
     "prepublishOnly": "npm run build"
   },
   "keywords": [

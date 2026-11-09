@@ -59,6 +59,19 @@ const ICON_SELECTION = {
 // simple-icons 中暂无收录，后续通过公司自有或补充来源维护：
 // feishu / dingtalk / wecom / tencentcloud / aws / azure / edge
 
+// 公司自有 logo（手动维护）。path 为 24×24 单色数据，来源为团队自有 SVG。
+// prime-work 由 assets/logo-blue.svg（2048×2048）按 24/2048 缩放、圆点转 path 并转单色得到。
+const COMPANY_ICONS = [
+  {
+    slug: "prime-work",
+    title: "Prime Work",
+    path: "M16.0615,7.0127c-2.4693-1.9955-5.8985-1.9018-8.2686,0.1999-2.6371,2.3386-2.902,6.4459-0.5684,9.1,2.8589,3.2514,7.9579,2.8903,10.2648-0.7863,1.1999-1.9121,1.3507-4.5431,0.2198-6.5225-0.0847-0.1482-0.3257-0.5481-0.4532-0.6367-0.0954-0.0663-0.2966,0.0778-0.3278,0.1646-0.0286,0.0793,0.1218,0.2399,0.1673,0.3121,1.2374,1.957,0.9955,4.6-0.3916,6.4126-2.0987,2.7427-6.1687,3.0936-8.5068,0.4467-1.6352-1.8513-1.8261-4.6716-0.4864-6.7446,1.9339-2.9924,6.0991-3.4762,8.7075-1.0546,0.1035,0.096,0.228,0.2561,0.3339,0.3341,0.095,0.0702,0.1649,0.0403,0.2522-0.0289,0.1417-0.1125,0.0911-0.1547-0.0006-0.2695-0.2618-0.3282-0.6157-0.6632-0.9422-0.927Z M12.0652 10.58a1.4415 1.4415 0 1 0 0 2.883a1.4415 1.4415 0 1 0 0 -2.883Z",
+    hex: "01a9f3",
+    source: "company",
+    attribution: "原初智性 Prime Work",
+  },
+];
+
 const bySlug = {};
 for (const value of Object.values(simpleIcons)) {
   if (value && value.slug) bySlug[value.slug] = value;
@@ -66,7 +79,7 @@ for (const value of Object.values(simpleIcons)) {
 
 const ATTRIBUTION = "simple-icons (CC0-1.0)";
 
-const entries = Object.entries(ICON_SELECTION).map(([publicSlug, sourceSlug]) => {
+const thirdPartyEntries = Object.entries(ICON_SELECTION).map(([publicSlug, sourceSlug]) => {
   const icon = bySlug[sourceSlug];
   if (!icon) {
     throw new Error(`simple-icons 中找不到 slug: ${sourceSlug}（对外 ${publicSlug}）`);
@@ -82,6 +95,10 @@ const entries = Object.entries(ICON_SELECTION).map(([publicSlug, sourceSlug]) =>
   return { publicSlug, item };
 });
 
+const companyEntries = COMPANY_ICONS.map((icon) => ({ publicSlug: icon.slug, item: icon }));
+
+const entries = [...thirdPartyEntries, ...companyEntries];
+
 const body = entries
   .map(({ publicSlug, item }) => {
     return `  ${JSON.stringify(publicSlug)}: {
@@ -96,8 +113,9 @@ const body = entries
   .join("\n");
 
 const header = `// 本文件由 scripts/export-icons.mjs 自动生成，请勿手动编辑。
-// 图标 path 来源：simple-icons（CC0-1.0）。各品牌 logo 归其各自权利人所有，仅作展示用途。
-// 新增图标：修改 scripts/export-icons.mjs 的 ICON_SELECTION 后运行 npm run export:icons。
+// 第三方图标 path 来源：simple-icons（CC0-1.0）；公司自有 logo 由 COMPANY_ICONS 手动维护。
+// 各品牌 logo 归其各自权利人所有，仅作展示用途。
+// 新增第三方图标：修改 ICON_SELECTION；新增/修改公司 logo：修改 COMPANY_ICONS 后运行 npm run export:icons。
 
 import type { BrandIcon } from "./types";
 
