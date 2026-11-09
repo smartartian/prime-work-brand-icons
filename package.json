@@ -1,6 +1,6 @@
 {
   "name": "prime-work-brand-icons",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Prime Work 品牌图标库：站点导航所需的第三方与公司自有品牌 logo，24×24 单色 SVG path，统一 si:<slug> 命名。",
   "type": "module",
   "main": "./dist/index.cjs",
