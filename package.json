@@ -1,0 +1,37 @@
+{
+  "name": "prime-work-brand-icons",
+  "version": "0.1.0",
+  "description": "Prime Work 品牌图标库：站点导航所需的第三方与公司自有品牌 logo，24×24 单色 SVG path，统一 si:<slug> 命名。",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "export:icons": "node scripts/export-icons.mjs",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "brand-icons",
+    "icons",
+    "svg",
+    "prime-work"
+  ],
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "simple-icons": "^15.20.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.6.3"
+  }
+}
